@@ -1,0 +1,41 @@
+version: '3'
+services:
+  wallet:
+    build:
+      build:
+        context: .
+        args:
+          REPOSITORY: 'https://github.com/PIVX-Project/PIVX'
+          REF: master
+    restart: always
+    ports:
+      - '51472:51472'
+      - '51473:51473'
+    command:
+      - '-rpcuser=pivx-wallet'
+      - '-rpcpassword=9x169li8'
+      - '-server=1'
+      - '-listen=0'
+    volumes:
+      - './wallet/:/home/pivx/'
+  masternode:
+    build:
+      build:
+        context: .
+        args:
+          REPOSITORY: 'https://github.com/PIVX-Project/PIVX'
+          REF: master
+    restart: always
+    ports:
+      - '51472:51472'
+      - '51473:51473'
+    command:
+      - '-rpcuser=pivx-mn01'
+      - '-rpcpassword=9x169li8'
+      - '-rpcallowip=::/0'
+      - '-server=0'
+      - '-listen=1'
+      - '-masternode=1'
+      - '-masternodeprivkey=YourMasternodePrivKey'
+    volumes:
+      - './masternode/:/home/pivx/'

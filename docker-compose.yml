@@ -1,0 +1,31 @@
+version: '3'
+services:
+  wallet:
+    image: 'lepetitbloc/pivxd:v3.1.0.3'
+    restart: always
+    ports:
+      - '51472:51472'
+      - '51473:51473'
+    command:
+      - '-rpcuser=pivx-wallet'
+      - '-rpcpassword=9x169li8'
+      - '-server=1'
+      - '-listen=0'
+    volumes:
+      - './wallet/:/home/pivx/'
+  masternode:
+    image: 'lepetitbloc/pivxd:v3.1.0.3'
+    restart: always
+    ports:
+      - '51472:51472'
+      - '51473:51473'
+    command:
+      - '-rpcuser=pivx-mn01'
+      - '-rpcpassword=9x169li8'
+      - '-rpcallowip=::/0'
+      - '-server=0'
+      - '-listen=1'
+      - '-masternode=1'
+      - '-masternodeprivkey=YourMasternodePrivKey'
+    volumes:
+      - './masternode/:/home/pivx/'
